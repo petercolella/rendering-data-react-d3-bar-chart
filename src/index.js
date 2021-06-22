@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import PieContainer from "./PieContainer";
+import BarChartContainer from "./BarChartContainer";
 
 const App = () => {
-  return <PieContainer />;
+  return <BarChartContainer />;
 };
 
 const rootElement = document.getElementById("root");
