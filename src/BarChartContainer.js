@@ -44,6 +44,14 @@ const BarChartContainer = () => {
   return (
     <svg width={width} height={height}>
       <g transform={`translate(${margin.left}, ${margin.top})`}>
+        {xScale.ticks().map((tickValue) => (
+          <g transform={`translate(${xScale(tickValue)}, 0)`}>
+            <line y2={innerHeight} stroke="black" />
+            <text text-anchor="middle" y={innerHeight + 3} dy="0.71em">
+              {tickValue}
+            </text>
+          </g>
+        ))}
         {data.map((d, i) => (
           <rect
             key={i}
