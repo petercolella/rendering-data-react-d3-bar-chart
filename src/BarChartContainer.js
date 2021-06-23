@@ -14,7 +14,7 @@ const styles = {
 const BarChartContainer = () => {
   const [data, setData] = useState(null);
   const { height, width } = useWindowDimensions();
-  const margin = { top: 20, right: 20, bottom: 20, left: 20 };
+  const margin = { top: 20, right: 20, bottom: 20, left: 200 };
 
   useEffect(() => {
     const row = (d) => {
@@ -35,7 +35,8 @@ const BarChartContainer = () => {
 
   const yScale = scaleBand()
     .domain(data.map((d) => d.Country))
-    .range([0, innerHeight]);
+    .range([0, innerHeight])
+    .paddingInner(0.025);
 
   const xScale = scaleLinear()
     .domain([0, max(data, (d) => d.Population)])
@@ -44,13 +45,24 @@ const BarChartContainer = () => {
   return (
     <svg width={width} height={height}>
       <g transform={`translate(${margin.left}, ${margin.top})`}>
-        {xScale.ticks().map((tickValue) => (
-          <g transform={`translate(${xScale(tickValue)}, 0)`}>
+        {xScale.ticks().map((tickValue, i) => (
+          <g key={i} transform={`translate(${xScale(tickValue)}, 0)`}>
             <line y2={innerHeight} stroke="black" />
-            <text text-anchor="middle" y={innerHeight + 3} dy="0.71em">
+            <text textAnchor="middle" y={innerHeight + 3} dy="0.71em">
               {tickValue}
             </text>
           </g>
+        ))}
+        {yScale.domain().map((value, i) => (
+          <text
+            key={i}
+            textAnchor="end"
+            x={-3}
+            y={yScale(value) + yScale.bandwidth() / 2}
+            dy="0.32em"
+          >
+            {value}
+          </text>
         ))}
         {data.map((d, i) => (
           <rect
