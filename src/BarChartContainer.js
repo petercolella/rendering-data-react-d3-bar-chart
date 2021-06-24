@@ -3,7 +3,9 @@ import { max, scaleBand, scaleLinear } from "d3";
 import { useGetData } from "./hooks/useGetData";
 import useWindowDimensions from "./hooks/useWindowDimensions";
 import AxisBottom from "./AxisBottom";
+import AxisLeft from "./AxisLeft";
 
+const margin = { top: 20, right: 20, bottom: 20, left: 200 };
 const styles = {
   pre: {
     fontSize: "2rem",
@@ -18,7 +20,6 @@ const BarChartContainer = () => {
     return <pre style={styles.pre}>Waiting for data...</pre>;
   }
 
-  const margin = { top: 20, right: 20, bottom: 20, left: 200 };
   const innerHeight = height - margin.top - margin.bottom;
   const innerWidth = width - margin.left - margin.right;
 
@@ -35,17 +36,7 @@ const BarChartContainer = () => {
     <svg width={width} height={height}>
       <g transform={`translate(${margin.left}, ${margin.top})`}>
         <AxisBottom xScale={xScale} innerHeight={innerHeight} />
-        {yScale.domain().map((value) => (
-          <text
-            key={value}
-            textAnchor="end"
-            x={-3}
-            y={yScale(value) + yScale.bandwidth() / 2}
-            dy="0.32em"
-          >
-            {value}
-          </text>
-        ))}
+        <AxisLeft yScale={yScale} />
         {data.map((d) => (
           <rect
             key={d.Country}
