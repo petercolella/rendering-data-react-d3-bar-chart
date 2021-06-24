@@ -4,6 +4,7 @@ import { useGetData } from "./hooks/useGetData";
 import useWindowDimensions from "./hooks/useWindowDimensions";
 import AxisBottom from "./AxisBottom";
 import AxisLeft from "./AxisLeft";
+import Marks from "./Marks";
 
 const margin = { top: 20, right: 20, bottom: 20, left: 200 };
 const styles = {
@@ -37,16 +38,7 @@ const BarChartContainer = () => {
       <g transform={`translate(${margin.left}, ${margin.top})`}>
         <AxisBottom xScale={xScale} innerHeight={innerHeight} />
         <AxisLeft yScale={yScale} />
-        {data.map((d) => (
-          <rect
-            key={d.Country}
-            x={0}
-            y={yScale(d.Country)}
-            width={xScale(d.Population)}
-            height={yScale.bandwidth()}
-            fill={"black"}
-          />
-        ))}
+        <Marks data={data} xScale={xScale} yScale={yScale} />
       </g>
     </svg>
   );
