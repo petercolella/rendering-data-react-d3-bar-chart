@@ -2,6 +2,7 @@ import React from "react";
 import { max, scaleBand, scaleLinear } from "d3";
 import { useGetData } from "./hooks/useGetData";
 import useWindowDimensions from "./hooks/useWindowDimensions";
+import AxisBottom from "./AxisBottom";
 
 const styles = {
   pre: {
@@ -33,14 +34,7 @@ const BarChartContainer = () => {
   return (
     <svg width={width} height={height}>
       <g transform={`translate(${margin.left}, ${margin.top})`}>
-        {xScale.ticks().map((tickValue) => (
-          <g key={tickValue} transform={`translate(${xScale(tickValue)}, 0)`}>
-            <line y2={innerHeight} stroke="black" />
-            <text textAnchor="middle" y={innerHeight + 3} dy="0.71em">
-              {tickValue}
-            </text>
-          </g>
-        ))}
+        <AxisBottom xScale={xScale} innerHeight={innerHeight} />
         {yScale.domain().map((value) => (
           <text
             key={value}
