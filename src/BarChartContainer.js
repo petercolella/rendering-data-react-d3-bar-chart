@@ -24,21 +24,30 @@ const BarChartContainer = () => {
   const innerHeight = height - margin.top - margin.bottom;
   const innerWidth = width - margin.left - margin.right;
 
-  const yScale = scaleBand()
-    .domain(data.map((d) => d.Country))
-    .range([0, innerHeight])
-    .paddingInner(0.025);
+  const xValue = (d) => d.Population;
+  const yValue = (d) => d.Country;
 
   const xScale = scaleLinear()
-    .domain([0, max(data, (d) => d.Population)])
+    .domain([0, max(data, xValue)])
     .range([0, innerWidth]);
+
+  const yScale = scaleBand()
+    .domain(data.map(yValue))
+    .range([0, innerHeight])
+    .paddingInner(0.025);
 
   return (
     <svg width={width} height={height}>
       <g transform={`translate(${margin.left}, ${margin.top})`}>
         <AxisBottom xScale={xScale} innerHeight={innerHeight} />
         <AxisLeft yScale={yScale} />
-        <Marks data={data} xScale={xScale} yScale={yScale} />
+        <Marks
+          data={data}
+          xScale={xScale}
+          xValue={xValue}
+          yScale={yScale}
+          yValue={yValue}
+        />
       </g>
     </svg>
   );

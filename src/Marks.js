@@ -1,12 +1,12 @@
 import React from "react";
 
-const Marks = ({ data, xScale, yScale }) =>
+const Marks = ({ data, xScale, xValue, yScale, yValue }) =>
   data.map((d) => (
     <rect
-      key={d.Country}
+      key={yValue(d)}
       x={0}
-      y={yScale(d.Country)}
-      width={xScale(d.Population)}
+      y={yScale(yValue(d))}
+      width={xScale(xValue(d))}
       height={yScale.bandwidth()}
       fill={"black"}
     />
