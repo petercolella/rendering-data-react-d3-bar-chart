@@ -6,19 +6,15 @@ import AxisBottom from "./AxisBottom";
 import AxisLeft from "./AxisLeft";
 import Marks from "./Marks";
 
-const margin = { top: 20, right: 20, bottom: 20, left: 200 };
-const styles = {
-  pre: {
-    fontSize: "2rem",
-  },
-};
+const margin = { top: 20, right: 20, bottom: 60, left: 220 };
+const xAxisLabelOffset = "1.5em";
 
 const BarChartContainer = () => {
   const data = useGetData();
   const { height, width } = useWindowDimensions();
 
   if (!data) {
-    return <pre style={styles.pre}>Waiting for data...</pre>;
+    return <pre>Waiting for data...</pre>;
   }
 
   const innerHeight = height - margin.top - margin.bottom;
@@ -34,13 +30,22 @@ const BarChartContainer = () => {
   const yScale = scaleBand()
     .domain(data.map(yValue))
     .range([0, innerHeight])
-    .paddingInner(0.025);
+    .paddingInner(0.1);
 
   return (
     <svg width={width} height={height}>
       <g transform={`translate(${margin.left}, ${margin.top})`}>
         <AxisBottom xScale={xScale} innerHeight={innerHeight} />
         <AxisLeft yScale={yScale} />
+        <text
+          className="axis-label"
+          x={innerWidth / 2}
+          textAnchor="middle"
+          y={innerHeight}
+          dy={xAxisLabelOffset}
+        >
+          Population
+        </text>
         <Marks
           data={data}
           xScale={xScale}
