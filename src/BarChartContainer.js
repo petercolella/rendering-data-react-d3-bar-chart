@@ -1,10 +1,11 @@
 import React from "react";
-import { format, max, scaleBand, scaleLinear } from "d3";
+import { max, scaleBand, scaleLinear } from "d3";
 import { useGetData } from "./hooks/useGetData";
 import useWindowDimensions from "./hooks/useWindowDimensions";
 import AxisBottom from "./AxisBottom";
 import AxisLeft from "./AxisLeft";
 import Marks from "./Marks";
+import tickFormatFunction from "./utils/formatTick";
 
 const margin = { top: 20, right: 20, bottom: 60, left: 220 };
 const xAxisLabelOffset = "1.5em";
@@ -38,7 +39,7 @@ const BarChartContainer = () => {
         <AxisBottom
           xScale={xScale}
           innerHeight={innerHeight}
-          tickFormat={(n) => format(".2s")(n).replace("G", "B")}
+          tickFormat={tickFormatFunction}
         />
         <AxisLeft yScale={yScale} />
         <text
