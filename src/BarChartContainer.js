@@ -1,5 +1,5 @@
 import React from "react";
-import { max, scaleBand, scaleLinear } from "d3";
+import { format, max, scaleBand, scaleLinear } from "d3";
 import { useGetData } from "./hooks/useGetData";
 import useWindowDimensions from "./hooks/useWindowDimensions";
 import AxisBottom from "./AxisBottom";
@@ -35,7 +35,11 @@ const BarChartContainer = () => {
   return (
     <svg width={width} height={height}>
       <g transform={`translate(${margin.left}, ${margin.top})`}>
-        <AxisBottom xScale={xScale} innerHeight={innerHeight} />
+        <AxisBottom
+          xScale={xScale}
+          innerHeight={innerHeight}
+          tickFormat={(n) => format(".2s")(n).replace("G", "B")}
+        />
         <AxisLeft yScale={yScale} />
         <text
           className="axis-label"

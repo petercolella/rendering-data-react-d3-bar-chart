@@ -5,7 +5,7 @@ const csvUrl =
 
 export const getData = async () => {
   const row = (d) => {
-    d.Population = +d["2020"];
+    d.Population = +d["2020"] * 1000;
     return d;
   };
   const data = await csv(csvUrl, row);

@@ -1,6 +1,6 @@
 import React from "react";
 
-const AxisBottom = ({ xScale, innerHeight }) =>
+const AxisBottom = ({ xScale, innerHeight, tickFormat }) =>
   xScale.ticks().map((tickValue) => (
     <g
       className="tick"
@@ -9,7 +9,7 @@ const AxisBottom = ({ xScale, innerHeight }) =>
     >
       <line y2={innerHeight} />
       <text textAnchor="middle" y={innerHeight + 3} dy="0.71em">
-        {tickValue}
+        {tickFormat(tickValue)}
       </text>
     </g>
   ));
